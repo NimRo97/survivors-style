@@ -1,7 +1,11 @@
 extends Area2D
 
-func _physics_process(_delta: float) -> void:
-	track_target()
+const MAX_ROTATION_PER_SECOND = 2 * PI
+
+
+func _physics_process(delta: float) -> void:
+	track_target(delta)
+	%Pistol.flip_v = global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI
 
 
 func shoot() -> void:
@@ -15,14 +19,16 @@ func shoot() -> void:
 func _on_timer_timeout() -> void:
 	shoot()
 
-func track_target() -> void:
+
+func track_target(delta) -> void:
 	var enemies_in_range := get_overlapping_bodies()
 	if enemies_in_range.size() > 0:
 		var target_enemy = get_closest(enemies_in_range)
-		look_at(target_enemy.global_position)
-	%Pistol.flip_v = global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI
-		
-	
+		var angle = get_angle_to(target_enemy.global_position)
+		if abs(angle) > MAX_ROTATION_PER_SECOND * delta:
+			angle = sign(angle) * MAX_ROTATION_PER_SECOND * delta
+		rotation += angle
+
 
 func get_closest(enemies: Array) -> Node2D:
 
