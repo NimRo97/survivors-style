@@ -42,9 +42,11 @@ rotation = -0.000884173
 
 [node name="PineTree" parent="." instance=ExtResource("2_l26od")]
 position = Vector2(360, 680)
+scale = Vector2(2.18, 2.18)
 
 [node name="PineTree2" parent="." instance=ExtResource("2_l26od")]
-position = Vector2(842, 615)
+position = Vector2(870, 607)
+scale = Vector2(2.62, 2.62)
 
 [node name="PineTree3" parent="." instance=ExtResource("2_l26od")]
 position = Vector2(685, 195)

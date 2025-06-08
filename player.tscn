@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cxie0l50quod1" path="res://gun.tscn" id="3_i3pqv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
-radius = 30.0
+radius = 38.0789
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 43.1856
