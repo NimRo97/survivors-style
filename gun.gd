@@ -1,10 +1,8 @@
 extends Area2D
 
 func _physics_process(_delta: float) -> void:
-	var enemies_in_range := get_overlapping_bodies()
-	if enemies_in_range.size() > 0:
-		var target_enemy = enemies_in_range[0]
-		look_at(target_enemy.global_position)
+	track_target()
+
 
 func shoot() -> void:
 	const BULLET = preload("res://bullet.tscn")
@@ -16,3 +14,25 @@ func shoot() -> void:
 
 func _on_timer_timeout() -> void:
 	shoot()
+
+func track_target() -> void:
+	var enemies_in_range := get_overlapping_bodies()
+	if enemies_in_range.size() > 0:
+		var target_enemy = get_closest(enemies_in_range)
+		look_at(target_enemy.global_position)
+	%Pistol.flip_v = global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI
+		
+	
+
+func get_closest(enemies: Array) -> Node2D:
+
+	var closest = null
+	var min_dist = INF
+	
+	for enemy in enemies:
+		if enemy is Node2D:
+			var dist = global_position.distance_to(enemy.global_position)
+			if dist < min_dist:
+				min_dist = dist
+				closest = enemy
+	return closest
