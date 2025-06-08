@@ -15,6 +15,7 @@ func _physics_process(_delta: float) -> void:
 		%HappyBoo.play_idle_animation()
 		
 	get_damaged(_delta)
+	pick_items(_delta)
 
 func get_damaged(_delta) -> void:
 	
@@ -28,6 +29,17 @@ func get_damaged(_delta) -> void:
 	%HealthBar.value = health
 	if health <= 0:
 		health_depleted.emit()
+
+func pick_items(_delta) -> void:
+	for item: RigidBody2D in %MagnetBox.get_overlapping_bodies():
+		var direction = item.global_position.direction_to(global_position)
+		item.move_and_collide(direction * _delta * 300)
+	
+	for item: RigidBody2D in %PickBox.get_overlapping_bodies():
+		item.queue_free()
+		var new_gun = preload("res://pistol/gun.tscn").instantiate()
+		new_gun.global_position = global_position
+		get_parent().add_child(new_gun)
 
 func _ready() -> void:
 	%HealthBar.max_value = health

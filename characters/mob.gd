@@ -25,6 +25,10 @@ func take_damage():
 		die()
 
 func die():
+	if (randf() < 0.05):
+		var gun_item = preload("res://pistol/pistol_item.tscn").instantiate()
+		gun_item.global_position = global_position
+		get_parent().add_child(gun_item)
 	queue_free()
 	const SMOKE = preload("res://smoke_explosion/smoke_explosion.tscn")
 	var smoke = SMOKE.instantiate()
