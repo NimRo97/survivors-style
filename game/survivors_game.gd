@@ -1,5 +1,7 @@
 extends Node2D
 
+const MOB_SCENE := preload("res://characters/mob.tscn")
+
 func _ready() -> void:
 	for i in range(5):
 		spawn_mob()
@@ -8,8 +10,8 @@ func _on_timer_timeout() -> void:
 	spawn_mob()
 
 func spawn_mob() -> void:
-	var new_mob = preload("res://characters/mob.tscn").instantiate()
 	%SpawnPoint.progress_ratio = randf()
+	var new_mob = MOB_SCENE.instantiate()
 	new_mob.global_position = %SpawnPoint.global_position
 	add_child(new_mob)
 

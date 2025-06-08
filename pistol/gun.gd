@@ -1,6 +1,8 @@
 extends Area2D
 
-const MAX_ROTATION_PER_SECOND = 2 * PI
+const MAX_ROTATION_PER_SECOND := 2 * PI
+const BULLET_SCENE := preload("res://pistol/bullet.tscn")
+const FLASH_SCENE := preload("res://pistol/muzzle_flash/muzzle_flash.tscn")
 
 
 func _physics_process(delta: float) -> void:
@@ -8,12 +10,12 @@ func _physics_process(delta: float) -> void:
 
 
 func shoot() -> void:
-	var bullet = preload("res://pistol/bullet.tscn").instantiate()
+	var bullet = BULLET_SCENE.instantiate()
 	bullet.global_position = %ShootingPoint.global_position
 	bullet.global_rotation = %ShootingPoint.global_rotation
 	%ShootingPoint.add_child(bullet)
 	
-	var flash = preload("res://pistol/muzzle_flash/muzzle_flash.tscn").instantiate()
+	var flash = FLASH_SCENE.instantiate()
 	%ShootingPoint.add_child(flash)
 
 
@@ -21,7 +23,7 @@ func _on_timer_timeout() -> void:
 	shoot()
 
 
-func track_target(delta) -> void:
+func track_target(delta: float) -> void:
 	var enemies_in_range := get_overlapping_bodies()
 	if enemies_in_range.size() > 0:
 		var target_enemy = get_closest(enemies_in_range)
@@ -36,14 +38,12 @@ func track_target(delta) -> void:
 
 
 func get_closest(enemies: Array) -> Node2D:
-
-	var closest = null
+	var closest: Node2D = null
 	var min_dist = INF
 	
 	for enemy in enemies:
-		if enemy is Node2D:
-			var dist = global_position.distance_to(enemy.global_position)
-			if dist < min_dist:
-				min_dist = dist
-				closest = enemy
+		var dist = global_position.distance_to(enemy.global_position)
+		if dist < min_dist:
+			min_dist = dist
+			closest = enemy
 	return closest

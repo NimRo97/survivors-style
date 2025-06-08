@@ -1,12 +1,12 @@
 extends Area2D
 
-var total_distance = 0
+const SPEED := 1000
+const MAX_DISTANCE := 1200
+const IMPACT_SCENE := preload("res://pistol/impact/impact.tscn")
+
+var total_distance: float = 0.0
 
 func _physics_process(delta: float) -> void:
-	
-	const SPEED = 1000
-	const MAX_DISTANCE = 1200
-	
 	var distance = SPEED * delta
 	var direction = Vector2.RIGHT.rotated(rotation)
 	
@@ -18,9 +18,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	queue_free()
 	if body.has_method("take_damage"):
 		body.take_damage()
-	var impact = preload("res://pistol/impact/impact.tscn").instantiate()
+	var impact = IMPACT_SCENE.instantiate()
 	impact.global_position = global_position
 	get_parent().add_child(impact)
+	queue_free()

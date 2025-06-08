@@ -1,8 +1,13 @@
 extends CharacterBody2D
 
-var health = 3
+const MOVE_SPEED := 300.0
+const DROP_CHANCE := 0.05
+const GUN_ITEM_SCENE := preload("res://pistol/pistol_item.tscn")
+const SMOKE_SCENE := preload("res://smoke_explosion/smoke_explosion.tscn")
 
-@onready var player = get_node("/root/Game/Player")
+var health: int = 3
+
+@onready var player: Node2D = get_node("/root/Game/Player")
 
 func _ready() -> void:
 	%Slime.play_walk()
@@ -12,10 +17,10 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
-	velocity = direction * 300.0
+	velocity = direction * MOVE_SPEED
 	move_and_slide()
 
-func take_damage():
+func take_damage() -> void:
 	health -= 1
 	%Slime.play_hurt()
 	%HealthBar.value = health
@@ -24,13 +29,12 @@ func take_damage():
 	if health <= 0:
 		die()
 
-func die():
-	if (randf() < 0.05):
-		var gun_item = preload("res://pistol/pistol_item.tscn").instantiate()
+func die() -> void:
+	if randf() < DROP_CHANCE:
+		var gun_item = GUN_ITEM_SCENE.instantiate()
 		gun_item.global_position = global_position
 		get_parent().add_child(gun_item)
 	queue_free()
-	const SMOKE = preload("res://smoke_explosion/smoke_explosion.tscn")
-	var smoke = SMOKE.instantiate()
+	var smoke = SMOKE_SCENE.instantiate()
 	smoke.global_position = global_position
 	get_parent().add_child(smoke)
