@@ -1,8 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
+.nomedia/
+
+# Godot-specific ignores
 .import/
 export.cfg
 export_presets.cfg
+
+# Imported translations
+*.translation
 
 # OS generated files
 .DS_Store
@@ -32,3 +38,7 @@ desktop.ini
 # Ignore platform-specific folders (optional)
 .android/
 .iOS/
+
+# Always track everything in addons/
+!/addons/
+!/addons/**
