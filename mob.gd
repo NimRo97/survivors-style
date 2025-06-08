@@ -6,6 +6,9 @@ var health = 3
 
 func _ready() -> void:
 	%Slime.play_walk()
+	%HealthBar.max_value = health
+	%HealthBar.value = health
+	%HealthBar.visible = false
 
 func _physics_process(_delta: float) -> void:
 	var direction = global_position.direction_to(player.global_position)
@@ -15,6 +18,8 @@ func _physics_process(_delta: float) -> void:
 func take_damage():
 	health -= 1
 	%Slime.play_hurt()
+	%HealthBar.value = health
+	%HealthBar.visible = true
 	
 	if health <= 0:
 		die()

@@ -28,3 +28,7 @@ func get_damaged(_delta) -> void:
 	%HealthBar.value = health
 	if health <= 0:
 		health_depleted.emit()
+
+func _ready() -> void:
+	%HealthBar.max_value = health
+	%HealthBar.value

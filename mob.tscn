@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsa1dy6g8557m"]
+[gd_scene load_steps=6 format=3 uid="uid://bsa1dy6g8557m"]
 
 [ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://characters/slime/slime.tscn" id="1_dy6sc"]
 [ext_resource type="Script" uid="uid://dt08kaelgckkd" path="res://mob.gd" id="1_nokgg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nokgg"]
 radius = 40.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nokgg"]
+bg_color = Color(0.152941, 0.168627, 0.188235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubaqv"]
+bg_color = Color(0.623529, 0.866667, 0.317647, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Mob" type="CharacterBody2D"]
 collision_layer = 2
@@ -18,3 +32,14 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -16)
 shape = SubResource("CircleShape2D_nokgg")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -46.0
+offset_top = -97.0
+offset_right = 46.0
+offset_bottom = -89.0
+theme_override_styles/background = SubResource("StyleBoxFlat_nokgg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ubaqv")
+value = 100.0
+show_percentage = false
