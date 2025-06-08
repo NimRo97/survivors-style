@@ -15,6 +15,9 @@ export_presets.cfg
 Thumbs.db
 desktop.ini
 
+# Backup files
+*~
+
 # Godot build output
 *.exe
 *.dll
