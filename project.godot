@@ -74,7 +74,7 @@ Settings/Show_Tooltips=true
 
 [application]
 
-config/name="Your First 2D Game With Godot 4: START (GDQuest)"
+config/name="GDQuest Survivors Extended"
 run/main_scene="uid://b8u7ihikwydsk"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.png"
