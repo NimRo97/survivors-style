@@ -5,7 +5,6 @@ const MAX_ROTATION_PER_SECOND = 2 * PI
 
 func _physics_process(delta: float) -> void:
 	track_target(delta)
-	%Pistol.flip_v = global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI
 
 
 func shoot() -> void:
@@ -28,6 +27,7 @@ func track_target(delta) -> void:
 		if abs(angle) > MAX_ROTATION_PER_SECOND * delta:
 			angle = sign(angle) * MAX_ROTATION_PER_SECOND * delta
 		rotation += angle
+		%Pistol.flip_v = global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI
 
 
 func get_closest(enemies: Array) -> Node2D:
