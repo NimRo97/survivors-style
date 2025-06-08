@@ -8,7 +8,7 @@ func _physics_process(delta: float) -> void:
 
 
 func shoot() -> void:
-	const BULLET = preload("res://bullet.tscn")
+	const BULLET = preload("res://pistol/bullet.tscn")
 	var bullet = BULLET.instantiate()
 	bullet.global_position = %ShootingPoint.global_position
 	bullet.global_rotation = %ShootingPoint.global_rotation

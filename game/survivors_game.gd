@@ -8,7 +8,7 @@ func _on_timer_timeout() -> void:
 	spawn_mob()
 
 func spawn_mob() -> void:
-	var new_mob = preload("res://mob.tscn").instantiate()
+	var new_mob = preload("res://characters/mob.tscn").instantiate()
 	%SpawnPoint.progress_ratio = randf()
 	new_mob.global_position = %SpawnPoint.global_position
 	add_child(new_mob)
