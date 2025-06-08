@@ -8,11 +8,13 @@ func _physics_process(delta: float) -> void:
 
 
 func shoot() -> void:
-	const BULLET = preload("res://pistol/bullet.tscn")
-	var bullet = BULLET.instantiate()
+	var bullet = preload("res://pistol/bullet.tscn").instantiate()
 	bullet.global_position = %ShootingPoint.global_position
 	bullet.global_rotation = %ShootingPoint.global_rotation
 	%ShootingPoint.add_child(bullet)
+	
+	var flash = preload("res://pistol/muzzle_flash/muzzle_flash.tscn").instantiate()
+	%ShootingPoint.add_child(flash)
 
 
 func _on_timer_timeout() -> void:
@@ -27,7 +29,10 @@ func track_target(delta) -> void:
 		if abs(angle) > MAX_ROTATION_PER_SECOND * delta:
 			angle = sign(angle) * MAX_ROTATION_PER_SECOND * delta
 		rotation += angle
-		%Pistol.flip_v = global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI
+		if global_rotation > 0.5 * PI or global_rotation < - 0.5 * PI:
+			%Pistol.scale.y = -1
+		else:
+			%Pistol.scale.y = 1
 
 
 func get_closest(enemies: Array) -> Node2D:

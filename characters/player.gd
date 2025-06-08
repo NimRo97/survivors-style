@@ -31,4 +31,4 @@ func get_damaged(_delta) -> void:
 
 func _ready() -> void:
 	%HealthBar.max_value = health
-	%HealthBar.value
+	%HealthBar.value = health
